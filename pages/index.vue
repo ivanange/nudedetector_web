@@ -34,7 +34,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import axios from 'axios';
+import axios, { type AxiosProgressEvent } from 'axios';
 import { FileSelector, Dropzone, DialogButton } from 'vue3-file-selector'
 
 const progress = ref(0);
@@ -56,9 +56,9 @@ function validate() {
     let formData = new FormData();
     files.value.forEach((file) => formData.append('file', file));
     const config = {
-        onUploadProgress: (progressEvent: ProgressEvent) => {
+        onUploadProgress: (progressEvent: AxiosProgressEvent) => {
             var percentCompleted = Math.round(
-                (progressEvent.loaded * 100) / progressEvent.total
+                (progressEvent.loaded * 100) / (progressEvent.total || 100)
             )
             progress.value = percentCompleted
         }
@@ -74,7 +74,7 @@ function validate() {
                 .reduce((acc, res) => {
                     acc[res.filename] = res.valid > 0;
                     return acc
-                }, {}))
+                }, {} as { [key: string]: boolean }))
             console.log(validation)
         })
         .catch((err) => error.value = 'Error has occured')

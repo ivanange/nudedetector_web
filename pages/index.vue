@@ -34,7 +34,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, computed } from 'Vue';
 import axios from 'axios';
 import { FileSelector, Dropzone, DialogButton } from 'vue3-file-selector'
 

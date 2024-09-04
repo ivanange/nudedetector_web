@@ -5,6 +5,7 @@
 .nitro
 .cache
 .yarn
+.netlify
 dist
 
 # Node dependencies

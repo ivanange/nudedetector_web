@@ -4,21 +4,21 @@
             Nude Detector
         </h1>
         <div class="min-w-96 w-full max-w-screen-sm">
-            <file-selector v-model="files" :accept="['image/png', 'image/jpeg']">
+            <file-selector ref="fselect" v-model="files" :accept="['image/png', 'image/jpeg']">
                 <dropzone v-slot="{ hovered }">
-                    <div class="w-full min-h-64 rounded-lg border-4 border-dashed border-gray-400 transition-colors duration-150 flex flex-col py-10 px-5 justify-center items-center"
+                    <div class="w-full min-h-32 rounded-lg border-4 border-dashed border-gray-400 transition-colors duration-150 flex flex-col py-10 px-5 justify-center items-center"
                         :class="{ 'border-blue-200': hovered }">
-                        <div class="flex flex-wrap">
+                        <div v-if="files.length > 0 && previews.length > 0" class="flex flex-wrap mb-16">
                             <img v-for="(preview, i) in previews" :key="preview" :src="preview" :title="files[i].name"
                                 class="h-64 w-64 mx-5 my-5 object-contain object-center border-[7px] rounded-md"
                                 :class="validation[files[i].name] !== undefined ? (validation[files[i].name] ? 'border-green-600' : 'border-red-600') : ''" />
                         </div>
-                        <div class="mt-16 flex">
+                        <div class="flex">
                             <dialog-button
                                 class="flex mx-4 text-gray-600 bg-gray-300 border transition-colors duration-300 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">
                                 Add images
                             </dialog-button>
-                            <button @click="files = []"
+                            <button @click="files = []; fselect.$refs.inputRef.value = ''"
                                 class="flex mx-4 text-white bg-red-500 border transition-colors duration-300 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">
                                 Clear
                             </button>
@@ -43,6 +43,7 @@
 import axios, { type AxiosProgressEvent } from 'axios';
 import { FileSelector, Dropzone, DialogButton } from 'vue3-file-selector'
 
+const fselect = ref(null)
 const progress = ref(0);
 const error = ref('');
 const files = ref<File[]>([]);

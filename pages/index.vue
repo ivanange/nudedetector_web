@@ -69,7 +69,7 @@ function validate() {
         }
     }
     axios.post(
-        'http://38.242.135.225:4000/validate',
+        'https://nudeapi.ivanange.dev/validate',
         formData,
         config
     )

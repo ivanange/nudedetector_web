@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Nude detector
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Demo: [nudedetector.ivanange.dev](https://nudedetector.ivanange.dev/)
 
 ## Setup
 
